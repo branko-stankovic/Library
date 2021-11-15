@@ -15,14 +15,7 @@ function Book(title, author, pages, read) {
 function addBookToLibrary(title, author, pages, read) {
     let book = new Book(title, author, pages, read);
     myLibrary.push(book);
-
-    let newBook = document.createElement('tr');
-    newBook.innerHTML = `<td>${book.title}</td>
-                        <td>${book.author}</td>
-                        <td>${book.pages}</td>
-                        <td>${book.read}</td>`;
-    library.appendChild(newBook);
-    displayLibrary()
+    displayLibrary();
 }
 
 function displayLibrary() {
@@ -32,6 +25,7 @@ function displayLibrary() {
                             <th>Pages</th>
                             <th>Status</th>
                         </tr>`;
+
     myLibrary.forEach((book) => {
         let newBook = document.createElement('tr');
         newBook.innerHTML = `<td>${book.title}</td>
