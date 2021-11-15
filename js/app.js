@@ -1,4 +1,5 @@
 const library = document.querySelector('table');
+const form = document.querySelector('form');
 
 let myLibrary = [
     {
@@ -44,7 +45,7 @@ function Book(title, author, pages, read) {
 }
 
 function addBookToLibrary(title, author, pages, read) {
-    let book = new Book(title, author, pages, read);
+    let book = new Book(title, author, pages, read ? "Read" : "Not Yet");
     myLibrary.push(book);
     displayLibrary();
 }
@@ -66,5 +67,13 @@ function displayLibrary() {
         library.appendChild(newBook);
     });
 }
+
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    addBookToLibrary(form.title.value, form.author.value, form.pages.value, form.read.checked);
+
+    form.reset();
+});
 
 displayLibrary();
