@@ -58,12 +58,14 @@ function displayLibrary() {
                             <th>Status</th>
                         </tr>`;
 
-    myLibrary.forEach((book) => {
+    myLibrary.forEach((book, i) => {
         let newBook = document.createElement('tr');
         newBook.innerHTML = `<td>${book.title}</td>
                         <td>${book.author}</td>
                         <td>${book.pages}</td>
-                        <td>${book.read}</td>`;
+                        <td>${book.read}</td>
+                        <td><button>Remove</button></td>`;
+        newBook.dataset.index = `${i}`;
         library.appendChild(newBook);
     });
 }
