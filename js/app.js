@@ -64,10 +64,13 @@ function displayLibrary() {
                         <td>${book.author}</td>
                         <td>${book.pages}</td>
                         <td>${book.read}</td>
-                        <td><button>Remove</button></td>`;
-        newBook.dataset.index = `${i}`;
+                        <td><button class="removeBook" data-index="${i}"">Remove</button></td>`;
         library.appendChild(newBook);
     });
+}
+
+function removeBookFromLibrary() {
+
 }
 
 form.addEventListener('submit', function(e) {
@@ -76,6 +79,14 @@ form.addEventListener('submit', function(e) {
     addBookToLibrary(form.title.value, form.author.value, form.pages.value, form.read.checked);
 
     form.reset();
+});
+
+library.addEventListener('click', function(e) {
+    if (e.target.className == "removeBook") {
+        let index = e.target.getAttribute('data-index');
+        myLibrary.splice(index,1);
+        displayLibrary();
+    }
 });
 
 displayLibrary();
