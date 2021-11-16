@@ -6,31 +6,31 @@ let myLibrary = [
         title: "You Don't Know JS: Up & Going",
         author: "Kyle Simpson",
         pages: 72,
-        read: "Read"
+        read: true
     },
     {
         title: "The Principles of Object-Oriented JavaScript",
         author: "Nicholas C. Zakas",
         pages: 120,
-        read: "Not Yet"
+        read: false
     },
     {
         title: "Clean Code: A Handbook of Agile Software Craftsmanship",
         author: "Robert C. Martin",
         pages: 464,
-        read: "Not Yet"
+        read: false
     },
     {
         title: "Can't Hurt Me: Master Your Mind and Defy the Odds",
         author: "David Goggins",
         pages: 366,
-        read: "Read"
+        read: true
     },
     {
         title: "Javascript Allongé",
         author: "Reginald Braithwaite",
         pages: 280,
-        read: "Read"
+        read: false
     }
 ];
 
@@ -45,7 +45,7 @@ function Book(title, author, pages, read) {
 }
 
 function addBookToLibrary(title, author, pages, read) {
-    let book = new Book(title, author, pages, read ? "Read" : "Not Yet");
+    let book = new Book(title, author, pages, read);
     myLibrary.push(book);
     displayLibrary();
 }
@@ -63,8 +63,8 @@ function displayLibrary() {
         newBook.innerHTML = `<td>${book.title}</td>
                         <td>${book.author}</td>
                         <td>${book.pages}</td>
-                        <td>${book.read}</td>
-                        <td><button class="removeBook" data-index="${i}"">Remove</button></td>`;
+                        <td>${book.read ? "&#9989;" : "&#10060;"}</td>
+                        <td><button class="removeBook" data-index="${i}"">&#x1F5D1;</button></td>`;
         library.appendChild(newBook);
     });
 }
@@ -75,9 +75,7 @@ function removeBookFromLibrary() {
 
 form.addEventListener('submit', function(e) {
     e.preventDefault();
-
     addBookToLibrary(form.title.value, form.author.value, form.pages.value, form.read.checked);
-
     form.reset();
 });
 
