@@ -75,7 +75,7 @@ function removeBookFromLibrary() {
 
 form.addEventListener('submit', function(e) {
     e.preventDefault();
-    addBookToLibrary(form.title.value, form.author.value, form.pages.value, form.read.checked);
+    addBookToLibrary(form.title.value, form.author.value, parseInt(form.pages.value), form.read.checked);
     form.reset();
 });
 
