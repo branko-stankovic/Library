@@ -68,14 +68,10 @@ function displayLibrary() {
                         <td>${book.author}</td>
                         <td>${book.pages}</td>
                         <td class="readStatus">${book.read ? "&#9989;" : "&#10060;"}</td>
-                        <td><button class="removeBook">&#x1F5D1;</button></td>`;
+                        <td class="removeBook">&#x1F5D1;</td>`;
         newBook.dataset.index = i;
         library.appendChild(newBook);
     });
-}
-
-function removeBookFromLibrary() {
-
 }
 
 form.addEventListener('submit', function(e) {
@@ -88,11 +84,14 @@ library.addEventListener('click', function(e) {
     if (e.target.className == "removeBook") {
         let index = e.target.parentNode.getAttribute('data-index');
         myLibrary.splice(index,1);
-        displayLibrary();
+        
+        let el = document.querySelector(`[data-index="${index}"]`);
+        el.remove();
     } else if (e.target.className === "readStatus") {
         let index = e.target.parentNode.getAttribute('data-index');
         myLibrary[index].read = !myLibrary[index].read;
-        displayLibrary();
+
+        e.target.innerHTML = myLibrary[index].read ? "&#9989;" : "&#10060;";
     }
 });
 
