@@ -50,21 +50,26 @@ function addBookToLibrary(title, author, pages, read) {
     displayLibrary();
 }
 
-function displayLibrary() {
+function buildTableHeader() {
     library.innerHTML = `<tr>
                             <th>Title</th>
                             <th>Author</th>
                             <th>Pages</th>
                             <th>Status</th>
                         </tr>`;
+}
+
+function displayLibrary() {
+    buildTableHeader();
 
     myLibrary.forEach((book, i) => {
         let newBook = document.createElement('tr');
         newBook.innerHTML = `<td>${book.title}</td>
                         <td>${book.author}</td>
                         <td>${book.pages}</td>
-                        <td>${book.read ? "&#9989;" : "&#10060;"}</td>
-                        <td><button class="removeBook" data-index="${i}"">&#x1F5D1;</button></td>`;
+                        <td class="readStatus">${book.read ? "&#9989;" : "&#10060;"}</td>
+                        <td><button class="removeBook">&#x1F5D1;</button></td>`;
+        newBook.dataset.index = i;
         library.appendChild(newBook);
     });
 }
@@ -81,8 +86,12 @@ form.addEventListener('submit', function(e) {
 
 library.addEventListener('click', function(e) {
     if (e.target.className == "removeBook") {
-        let index = e.target.getAttribute('data-index');
+        let index = e.target.parentNode.getAttribute('data-index');
         myLibrary.splice(index,1);
+        displayLibrary();
+    } else if (e.target.className === "readStatus") {
+        let index = e.target.parentNode.getAttribute('data-index');
+        myLibrary[index].read = !myLibrary[index].read;
         displayLibrary();
     }
 });
