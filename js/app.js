@@ -21,12 +21,6 @@ let myLibrary = [
         read: false
     },
     {
-        title: "Can't Hurt Me: Master Your Mind and Defy the Odds",
-        author: "David Goggins",
-        pages: 366,
-        read: true
-    },
-    {
         title: "Javascript Allongé",
         author: "Reginald Braithwaite",
         pages: 280,
@@ -81,14 +75,13 @@ library.addEventListener('click', function(e) {
     if (e.target.className == "removeBook") {
         let index = e.target.parentNode.getAttribute('data-index');
         myLibrary.splice(index,1);
-        
-        let el = document.querySelector(`[data-index="${index}"]`);
-        el.remove();
+
+        displayLibrary();
     } else if (e.target.className === "readStatus") {
         let index = e.target.parentNode.getAttribute('data-index');
         myLibrary[index].read = !myLibrary[index].read;
-
-        e.target.innerHTML = myLibrary[index].read ? "&#9989;" : "&#10060;";
+        
+        displayLibrary();
     }
 });
 
