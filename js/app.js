@@ -38,6 +38,7 @@ function Book(title, author, pages, read) {
 function addBookToLibrary(title, author, pages, read) {
     let book = new Book(title, author, pages, read);
     myLibrary.push(book);
+    saveStorage();
     displayLibrary();
 }
 
@@ -67,7 +68,10 @@ function displayLibrary() {
 
 form.addEventListener('submit', function(e) {
     e.preventDefault();
-    addBookToLibrary(form.title.value, form.author.value, parseInt(form.pages.value), form.read.checked);
+    addBookToLibrary(form.title.value, 
+                    form.author.value, 
+                    parseInt(form.pages.value), 
+                    form.read.checked);
     form.reset();
 });
 
@@ -76,13 +80,26 @@ library.addEventListener('click', function(e) {
         let index = e.target.parentNode.getAttribute('data-index');
         myLibrary.splice(index,1);
 
+        saveStorage();
         displayLibrary();
     } else if (e.target.className === "readStatus") {
         let index = e.target.parentNode.getAttribute('data-index');
         myLibrary[index].read = !myLibrary[index].read;
         
+        saveStorage();
         displayLibrary();
     }
 });
 
+function loadStorage() {
+    if (localStorage.getItem('myStoredBooks')) {
+        myLibrary = JSON.parse(localStorage.getItem('myStoredBooks'));
+    }
+}
+
+function saveStorage() {
+    localStorage.setItem('myStoredBooks', JSON.stringify(myLibrary));
+}
+
+loadStorage();
 displayLibrary();
